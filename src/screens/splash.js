@@ -10,17 +10,17 @@ class Splash extends Component{
         }
     }
     componentWillMount(){
-        // navigator.geolocation.getCurrentPosition(
-        //     (position) => {console.log(position,"position")
-        //         this.props.navigation.navigate("weather",{
-        //             latitude: position.coords.latitude,
-        //             longitude: position.coords.longitude
-        //           })
-        //     },
-        //     (error) => this.setState({ error: error.message }),
-        //     { enableHighAccuracy: true, timeout: 20000,
-        //          },
-        //   );
+        navigator.geolocation.getCurrentPosition(
+            (position) => {console.log(position,"position")
+                this.props.navigation.navigate("weather",{
+                    latitude: position.coords.latitude,
+                    longitude: position.coords.longitude
+                  })
+            },
+            (error) => this.setState({ error: error.message }),
+            { enableHighAccuracy: true, timeout: 20000,
+                 },
+          );
     }
     render(){
         const {width,height} =this.state    
@@ -32,10 +32,13 @@ class Splash extends Component{
             style={{
                 backgroundColor:"#FCDAB0",
                 flex:1,
+            }}
+            contentContainerStyle={{
                 alignItems:"center",
                 justifyContent:"center"
             }}
             >
+
             <Text
             style={{color:"#5B4224",fontSize:30}}
             >

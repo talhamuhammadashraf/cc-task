@@ -1,5 +1,5 @@
 import React ,{Component} from 'react';
-import {View,Text,Dimensions,ScrollView,TouchableOpacity,Image} from 'react-native'
+import {View,Text,Dimensions,ScrollView,TouchableOpacity,Image,StyleSheet} from 'react-native'
 import Sun from '../assets/sun.png'
 const {height,width} = Dimensions.get('window')
 
@@ -50,7 +50,7 @@ class Weather extends Component{
                         <Text
                             style={{ color: "#5B4224", margin: 10, fontSize: 20, fontWeight: "bold" }}
                         >{name || "CityName"}</Text>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={()=>this.props.navigation.navigate("restraunt")}>
                             <View style={{
                                 width: width * 0.5,
                                 backgroundColor: "#CDA16A",
@@ -88,13 +88,13 @@ class Weather extends Component{
                         flexDirection: "row",
                         justifyContent: "space-between"
                     }}>
-                        <Text style={{ fontSize: 25, color: "#5B4224", marginHorizontal: 20, fontWeight: "bold" }}>
+                        <Text style={styles.forecastValue}>
                             {visibility || "Visibility"}
                         </Text>
-                        <Text style={{ fontSize: 25, color: "#5B4224", marginHorizontal: 20, fontWeight: "bold" }}>
+                        <Text style={styles.forecastValue}>
                             {humidity || "Humidity"}
                         </Text>
-                        <Text style={{ fontSize: 25, color: "#5B4224", marginHorizontal: 20, fontWeight: "bold" }}>
+                        <Text style={styles.forecastValue}>
                             {wind || "Wind"}
                         </Text>
 
@@ -103,13 +103,13 @@ class Weather extends Component{
                         flexDirection: "row",
                         justifyContent: "space-between"
                     }}>
-                        <Text style={{ fontSize: 20, color: "#5B4224", marginHorizontal: 15 }}>
+                        <Text style={styles.forecastKey}>
                             Visibility
                         </Text>
-                        <Text style={{ fontSize: 20, color: "#5B4224", marginHorizontal: 15 }}>
+                        <Text style={styles.forecastKey}>
                             Humidity
                         </Text>
-                        <Text style={{ fontSize: 20, color: "#5B4224", marginHorizontal: 15 }}>
+                        <Text style={styles.forecastKey}>
                             Wind
                         </Text>
 
@@ -121,3 +121,12 @@ class Weather extends Component{
     }
 }
 export default Weather
+
+const styles = StyleSheet.create({
+    forecastKey:{
+        fontSize: 20, color: "#5B4224", marginHorizontal: 15
+    },
+    forecastValue :{
+        fontSize: 25, color: "#5B4224", marginHorizontal: 20, fontWeight: "bold" 
+    }
+})

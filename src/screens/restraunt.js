@@ -1,61 +1,59 @@
 import React ,{Component} from 'react';
-import {View,Image,Text,TouchableOpacity,Dimensions,ScrollView} from 'react-native';
-import axios from 'axios'
+import {View,Image,Text,TouchableOpacity,Dimensions,ScrollView,StyleSheet} from 'react-native';
+import Card from '../components/card'
 const {height,width} = Dimensions.get('window')
 class Restraunt extends Component{
     constructor(){
         super();
         this.state={
             height:height > width ? height : width,
-            width:width
+            width:width,
+            data:[
+                {name:"Zafran",location:"Dubai",type:"Indian",rating:3.8,review:96},
+                {name:"Zafran",location:"Dubai",type:"Indian",rating:3.8,review:96},
+                {name:"Zafran",location:"Dubai",type:"Indian",rating:3.8,review:96},
+                {name:"Zafran",location:"Dubai",type:"Indian",rating:3.8,review:96},
+                {name:"Zafran",location:"Dubai",type:"Indian",rating:3.8,review:96}
+            ]
         }
-        this.getWeather = this.getWeather.bind(this)
     }
     componentWillMount(){
-        // navigator.geolocation.getCurrentPosition(
-        //     (position) => {
-        //       this.setState(
-        //           (prevState)=>({
-        //         latitude: position.coords.latitude,
-        //         longitude: position.coords.longitude,
-        //         error: null                      
-        //           },()=>{this.getWeather()})
-        //     //       {
-        //     //     latitude: position.coords.latitude,
-        //     //     longitude: position.coords.longitude,
-        //     //     error: null,
-        //     //   }
-        //     );
-        //     },
-        //     (error) => this.setState({ error: error.message }),
-        //     { enableHighAccuracy: true, timeout: 20000,
-        //         //  maximumAge: 1000
-        //          },
-        //   );
-    }
-    getWeather(){console.log("called")
-        axios.get(
-            "api.openweathermap.org/data/2.5/forecast?lat=24.8607&lon=67.0011&APPID=229b7a7fd3d2932ea2f2a080926bd07d"
-            // `api.openweathermap.org/data/2.5/forecast?lat=${this.state.latitude}&lon=${this.state.longitude}&APPID=229b7a7fd3d2932ea2f2a080926bd07d`
-          ).then((data)=>{
-              console.log(data,"this is response feom api")
-          }).catch((error)=>console.log(error))
-
     }
     render(){
         const {width,height} =this.state    
-        console.log(this.state,"@@@@@")
         return(
-            <ScrollView onLayout={(event)=>{
+            <ScrollView onLayout={(event) => {
                 this.setState({
                     width: event.nativeEvent.layout.width,
-            })}}
+                })
+            }}
             >
-            <Text>
-                this is restraunt
-            </Text>
+                <View
+                    style={styles.headerContainer}
+                >
+                    <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
+                        <Text style={styles.headerText}>
+                            {"<"}</Text>
+                    </TouchableOpacity>
+                    <Text style={styles.headerText}
+                    >Nearby Restraunt</Text>
+                    <Text></Text>
+                </View>
+                <View>{
+                    this.state.data.map((data) =>
+                        <Card height={height} data={data} />
+                    )
+                }
+                </View>
             </ScrollView>
         )
     }
 }
 export default Restraunt
+
+const styles = StyleSheet.create({
+    headerContainer: {
+        backgroundColor: "#4A90E2", height: 30, flexDirection: "row", justifyContent: "space-between"
+    },
+    headerText: { color: "white", fontSize: 18, marginHorizontal: 8 }
+})
